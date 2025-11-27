@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="ColorCircle">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:backgroundTintMode">src_in</item>
+        <item name="android:background">@drawable/color_circle</item>
+    </style>
+
+    <style name="TimeWizeDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_rounded</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="TimeWizeDatePickerDialog" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorSurface">@color/background_gray</item>
+        <item name="dialogTheme">@style/TimeWizeDialogTheme</item>
+        <item name="colorOnSurface">@color/black</item>
+    </style>
+
+    <style name="TimeWizeTimePickerDialog" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="dialogTheme">@style/TimeWizeDialogTheme</item>
+        <item name="colorOnSurface">@color/black</item>
+    </style>
+</resources>

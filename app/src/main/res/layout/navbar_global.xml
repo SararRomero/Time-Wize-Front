@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNavigation"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/background_gray"
+    android:paddingHorizontal="16dp">
+
+    <!-- Icono Inicio -->
+    <ImageView
+        android:id="@+id/navHome"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_home"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Inicio"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Icono Calendario -->
+    <ImageView
+        android:id="@+id/navCalendar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_calendar"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Calendario"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/navHome"
+        app:layout_constraintEnd_toStartOf="@id/navAdd"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <!-- Botón central flotante -->
+    <ImageButton
+        android:id="@+id/navAdd"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_fab"
+        android:src="@drawable/ic_add"
+        android:padding="10dp"
+        android:tint="@color/white"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Agregar tarea"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Icono Notificaciones -->
+    <ImageView
+        android:id="@+id/navNotifications"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_notifications"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Notificaciones"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/navProfile"
+        app:layout_constraintStart_toEndOf="@id/navAdd" />
+
+    <!-- Icono Perfil -->
+    <ImageView
+        android:id="@+id/navProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_user"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Perfil"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

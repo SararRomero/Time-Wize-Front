@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNavigationAdmin"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/background_gray"
+    android:paddingHorizontal="16dp">
+
+    <!-- Icono Inicio (Dashboard Admin) -->
+    <ImageView
+        android:id="@+id/navAdminHome"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_home"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Inicio Admin"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Icono de Categorías Globales (Antes era Calendario) -->
+    <ImageView
+        android:id="@+id/navCategories"
+        android:layout_width="42dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_categories"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Gestionar Categorías"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/navAdminHome"
+        app:layout_constraintEnd_toStartOf="@id/navAddAdmin"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <!-- Botón central (Administrar usuarios) -->
+    <ImageButton
+        android:id="@+id/navAddAdmin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_fab"
+        android:src="@drawable/ic_add"
+        android:padding="10dp"
+        android:tint="@color/white"
+        android:scaleType="fitCenter"
+        android:contentDescription="Administrar Usuarios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Icono Reportes Generales (Reemplaza Notificaciones) -->
+    <ImageView
+        android:id="@+id/navReports"
+        android:layout_width="42dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_reports"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Reportes Generales"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/navAddAdmin"
+        app:layout_constraintEnd_toStartOf="@id/navAdminProfile" />
+
+    <!-- Icono Perfil Admin -->
+    <ImageView
+        android:id="@+id/navAdminProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_user"
+        android:tint="@color/text_secondary"
+        android:contentDescription="Perfil Admin"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
