@@ -84,6 +84,8 @@
             android:name=".iu.screens.LoginActivity"
             android:exported="false" />
 
+        <activity android:name=".iu.screens.UserReportsActivity" />
+
     </application>
 
 </manifest>

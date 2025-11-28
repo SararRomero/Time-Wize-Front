@@ -47,4 +47,8 @@
     <color name="colorPrimary">#6750A4</color>
 
     <color name="error_color">#F44336</color>
+
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#90CAF9</color>
+    <color name="success_color">#4CAF50</color>
 </resources>

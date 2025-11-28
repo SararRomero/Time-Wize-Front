@@ -19,6 +19,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.timewize.R
 import com.example.timewize.iu.screens.categories.CategoriesActivity
+import com.example.timewize.iu.screens.UserReportsActivity
 import kotlin.math.min
 import kotlin.math.cos
 import kotlin.math.sin
@@ -109,10 +110,17 @@ class AdminDashboardActivity : AppCompatActivity() {
             updateNavigationIcons(R.id.navAddAdmin)
         }
 
-        // Reportes Generales
+        // Reportes Generales - CORREGIDO ✅
         navReports.setOnClickListener {
-            Toast.makeText(this, "Reportes Generales", Toast.LENGTH_SHORT).show()
-            updateNavigationIcons(R.id.navReports)
+            try {
+                val intent = Intent(this, UserReportsActivity::class.java)
+                startActivity(intent)
+                applySlideTransition()
+                updateNavigationIcons(R.id.navReports)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error abriendo reportes: ${e.message}", Toast.LENGTH_LONG).show()
+                e.printStackTrace()
+            }
         }
 
         // Perfil Admin

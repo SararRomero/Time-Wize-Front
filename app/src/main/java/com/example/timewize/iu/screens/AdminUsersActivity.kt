@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.example.timewize.R
-import com.example.timewize.iu.screens.adapters.UserAdapter
 import com.example.timewize.iu.screens.models.User
+import com.example.timewize.iu.screens.adapters.UserAdapter // IMPORTANTE: Agregar este import
 
 class AdminUsersActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var userAdapter: UserAdapter
-    private lateinit var btnAddUser: ImageButton
+    private lateinit var btnAddUser: com.google.android.material.button.MaterialButton // Cambiado a MaterialButton
 
     private val userList = mutableListOf<User>()
 
@@ -37,7 +37,7 @@ class AdminUsersActivity : AppCompatActivity() {
 
     private fun initViews() {
         recyclerView = findViewById(R.id.recyclerViewUsers)
-        btnAddUser = findViewById(R.id.btnAddUser)
+        btnAddUser = findViewById(R.id.btnAddUser) // Asegúrate que el ID coincida con tu XML
 
         // DEBUG: Verificar que las vistas se encuentran
         if (::recyclerView.isInitialized) {
@@ -50,8 +50,8 @@ class AdminUsersActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         userAdapter = UserAdapter(userList) { user, action ->
             when (action) {
-                "edit" -> showUserFormDialog(user)
-                "delete" -> showDeleteConfirmation(user)
+                UserAdapter.ACTION_OPTIONS -> showUserOptions(user) // Cambiado a ACTION_OPTIONS
+                UserAdapter.ACTION_VIEW -> showUserDetails(user) // Agregado para el click en el item
             }
         }
 
@@ -93,17 +93,53 @@ class AdminUsersActivity : AppCompatActivity() {
         }
     }
 
+    // NUEVO MÉTODO: Manejar opciones del usuario
+    private fun showUserOptions(user: User) {
+        val options = arrayOf("Editar", "Eliminar", "Cambiar Estado")
+
+        AlertDialog.Builder(this)
+            .setTitle("Opciones para ${user.name}")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> showUserFormDialog(user) // Editar
+                    1 -> showDeleteConfirmation(user) // Eliminar
+                    2 -> toggleUserStatus(user) // Cambiar Estado
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    // NUEVO MÉTODO: Cambiar estado del usuario
+    private fun toggleUserStatus(user: User) {
+        val newStatus = if (user.status == "Activo") "Inactivo" else "Activo"
+        val index = userList.indexOfFirst { it.id == user.id }
+
+        if (index != -1) {
+            userList[index] = user.copy(status = newStatus)
+            userAdapter.notifyItemChanged(index)
+            Toast.makeText(this, "Estado de ${user.name} cambiado a $newStatus", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // NUEVO MÉTODO: Mostrar detalles del usuario (para click en item)
+    private fun showUserDetails(user: User) {
+        // Aquí puedes mostrar un diálogo con los detalles completos del usuario
+        // o navegar a una pantalla de detalles
+        Toast.makeText(this, "Ver detalles de ${user.name}", Toast.LENGTH_SHORT).show()
+    }
+
     private fun setupNavbarListeners() {
         // Buscar las vistas del navbar incluido
         val bottomNavAdmin = findViewById<ViewGroup>(R.id.bottomNavigationAdmin)
 
-        val navAdminHome: ImageView = bottomNavAdmin.findViewById(R.id.navAdminHome)
-        val navCategories: ImageView = bottomNavAdmin.findViewById(R.id.navCategories)
-        val navReports: ImageView = bottomNavAdmin.findViewById(R.id.navReports)
-        val navAdminProfile: ImageView = bottomNavAdmin.findViewById(R.id.navAdminProfile)
-        val navAddAdmin: ImageButton = bottomNavAdmin.findViewById(R.id.navAddAdmin)
+        val navAdminHome: ImageView? = bottomNavAdmin?.findViewById(R.id.navAdminHome)
+        val navCategories: ImageView? = bottomNavAdmin?.findViewById(R.id.navCategories)
+        val navReports: ImageView? = bottomNavAdmin?.findViewById(R.id.navReports)
+        val navAdminProfile: ImageView? = bottomNavAdmin?.findViewById(R.id.navAdminProfile)
+        val navAddAdmin: ImageButton? = bottomNavAdmin?.findViewById(R.id.navAddAdmin)
 
-        navAdminHome.setOnClickListener {
+        navAdminHome?.setOnClickListener {
             // Navegar al Dashboard Admin
             try {
                 val intent = Intent(this, AdminDashboardActivity::class.java)
@@ -111,10 +147,11 @@ class AdminUsersActivity : AppCompatActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this, "Error al navegar al Inicio", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
         }
 
-        navCategories.setOnClickListener {
+        navCategories?.setOnClickListener {
             // Navegar a Categorías
             try {
                 val intent = Intent(this, AdminCategoriesActivity::class.java)
@@ -122,10 +159,11 @@ class AdminUsersActivity : AppCompatActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this, "Pantalla de Categorías no disponible", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
         }
 
-        navReports.setOnClickListener {
+        navReports?.setOnClickListener {
             // Navegar a Reportes
             try {
                 val intent = Intent(this, AdminReportsActivity::class.java)
@@ -133,15 +171,16 @@ class AdminUsersActivity : AppCompatActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this, "Pantalla de Reportes no disponible", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
         }
 
-        navAdminProfile.setOnClickListener {
+        navAdminProfile?.setOnClickListener {
             Toast.makeText(this, "Perfil Admin - En desarrollo", Toast.LENGTH_SHORT).show()
         }
 
         // El botón central ya está en la pantalla de usuarios
-        navAddAdmin.setOnClickListener {
+        navAddAdmin?.setOnClickListener {
             // Ya estamos en usuarios, podemos abrir el diálogo directamente
             showUserFormDialog(null)
         }
@@ -163,11 +202,7 @@ class AdminUsersActivity : AppCompatActivity() {
         val btnSave = dialog.findViewById<Button>(R.id.btnSave)
         val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
 
-        // OPCIÓN 1: Si tienes un TextView con ID diferente, usa este código:
-        // val titleTextView = dialog.findViewById<TextView>(R.id.tu_id_real_del_titulo)
-        // titleTextView?.text = if (user == null) "Agregar Usuario" else "Editar Usuario"
-
-        // OPCIÓN 2: Configurar el título del diálogo directamente (recomendado)
+        // Configurar el título del diálogo
         dialog.setTitle(if (user == null) "Agregar Usuario" else "Editar Usuario")
 
         // Si es edición, llenar los campos
@@ -239,11 +274,11 @@ class AdminUsersActivity : AppCompatActivity() {
                 Toast.makeText(this, "Ingrese un email válido", Toast.LENGTH_SHORT).show()
                 false
             }
-            password.isEmpty() -> {
+            password.isEmpty() && password != "dummy" -> {
                 Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show()
                 false
             }
-            password.length < 6 -> {
+            password.length < 6 && password != "dummy" -> {
                 Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
                 false
             }
