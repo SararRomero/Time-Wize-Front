@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TimeWize</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
-</resources>
+    <string name="stat_icon_desc">Icono de estadística</string>
+    <string name="stat_title_default">Título</string>
+    <string name="stat_value_default">0</string>
+</resources
+    >
