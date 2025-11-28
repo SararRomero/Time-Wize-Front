@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TimeWize">
+        android:theme="@style/Theme.TimeWize"> <!-- ✅ SOLO UN THEME -->
 
         <!-- PANTALLA ADMIN COMO PRINCIPAL (TEMPORAL) -->
         <activity
@@ -21,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ✅ AGREGAR CategoriesActivity AQUÍ -->
+        <activity
+            android:name=".iu.screens.categories.CategoriesActivity"
+            android:exported="false" />
 
         <activity android:name=".iu.screens.ResetPasswordActivity" />
         <activity

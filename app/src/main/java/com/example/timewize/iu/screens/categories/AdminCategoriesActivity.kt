@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.timewize.R
 import com.example.timewize.databinding.FragmentManageGlobalCategoriesBinding
 
-class ManageGlobalCategoriesFragment : Fragment() {
+class AdminCategoriesActivity : Fragment() {
 
     private var _binding: FragmentManageGlobalCategoriesBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +31,17 @@ class ManageGlobalCategoriesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        categoriesAdapter = GlobalCategoriesAdapter()
+        categoriesAdapter = GlobalCategoriesAdapter(
+            onEdit = { category ->
+                // Handle edit category
+                showEditCategoryDialog(category)
+            },
+            onDelete = { category ->
+                // Handle delete category
+                showDeleteConfirmationDialog(category)
+            }
+        )
+
         binding.rvCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoriesAdapter
@@ -49,15 +59,23 @@ class ManageGlobalCategoriesFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.fabAddCategory.setOnClickListener {
-            // Aquí irá la lógica para agregar nueva categoría
             showAddCategoryDialog()
         }
     }
 
     private fun showAddCategoryDialog() {
         // Implementar diálogo para agregar categoría
-        // Por ahora solo un mensaje
         android.widget.Toast.makeText(requireContext(), "Agregar categoría", android.widget.Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showEditCategoryDialog(category: Category) {
+        // Implementar diálogo para editar categoría
+        android.widget.Toast.makeText(requireContext(), "Editar categoría: ${category.name}", android.widget.Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showDeleteConfirmationDialog(category: Category) {
+        // Implementar diálogo de confirmación para eliminar
+        android.widget.Toast.makeText(requireContext(), "Eliminar categoría: ${category.name}", android.widget.Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

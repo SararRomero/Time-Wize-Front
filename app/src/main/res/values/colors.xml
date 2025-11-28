@@ -3,13 +3,13 @@
     <!-- Azul principal -->
     <color name="primary_blue">#8EB0C8</color>
     <color name="primary_blue_light">#A8C6DF</color>
-
+    <color name="primary_blue_dark">#8D3F51B5</color>
 
     <!-- Colores de fondo y texto -->
     <color name="background_gray">#F8F9FB</color>
     <color name="card_white">#FFFFFF</color>
     <color name="border_gray">#E0E0E0</color>
-    <color name="text_primary">#000000</color>
+    <color name="text_primary">#333333</color>
     <color name="text_secondary">#666666</color>
     <color name="text_white">#FFFFFF</color>
 
@@ -18,26 +18,33 @@
     <color name="status_done">#4CAF50</color>
     <color name="status_progress">#FF9800</color>
 
-
-    <color name="primary_blue_dark">#8D3F51B5</color>
+    <!-- Colores Material Design -->
     <color name="purple_200">#BB86FC</color>
     <color name="purple_700">#3700B3</color>
-    <color name="black">#000000</color>
     <color name="teal_200">#03DAC5</color>
 
-    <!-- Colores botones del flitro -->
+    <!-- Colores básicos -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Colores botones del filtro -->
     <color name="azul_botones">#5E7FBF</color>
     <color name="blanco">#FFFFFF</color>
-    <color name="white">#FFFFFF</color>
     <color name="gray_light">#F5F5F5</color>
 
     <!-- Colores para estados -->
     <color name="primary_color">#6750A4</color>
     <color name="on_primary_color">#FFFFFF</color>
 
+    <!-- Colores de la paleta -->
     <color name="color_red">#FF6363</color>
     <color name="color_pink">#FFC0CB</color>
     <color name="color_yellow">#FFD700</color>
     <color name="color_green">#3CB371</color>
     <color name="color_blue">#4169E1</color>
+
+    <!-- Compatibilidad -->
+    <color name="colorPrimary">#6750A4</color>
+
+    <color name="error_color">#F44336</color>
 </resources>

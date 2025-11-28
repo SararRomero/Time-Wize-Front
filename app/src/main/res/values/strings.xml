@@ -4,5 +4,47 @@
     <string name="stat_icon_desc">Icono de estadística</string>
     <string name="stat_title_default">Título</string>
     <string name="stat_value_default">0</string>
-</resources
-    >
+
+    <!-- Categorías -->
+    <string name="category_icon_bullet">●</string>
+    <string name="category_name_default">Categoría</string>
+    <string name="task_count_default">0 tareas</string>
+    <string name="category_options_description">Opciones de categoría</string>
+    <string name="empty_categories_icon">📁</string>
+
+    <!-- Textos para la actividad de categorías -->
+    <string name="categories_title">Categorías</string>
+    <string name="new_category_header">NUEVA CATEGORÍA</string>
+    <string name="categories_description">Organiza tus tareas por categorías</string>
+    <string name="empty_categories_title">No hay categorías</string>
+    <string name="empty_categories_message">Presiona el botón + para agregar una</string>
+    <string name="add_category">Agregar categoría</string>
+    <string name="edit_category">Editar categoría</string>
+    <string name="delete_category">Eliminar categoría</string>
+    <string name="tasks">tareas</string>
+
+    <!-- Admin Users Activity -->
+    <string name="admin_users_title">Administrar Usuarios</string>
+    <string name="add_user_description">Agregar nuevo usuario</string>
+
+    <!-- User Actions -->
+    <string name="edit_user">Editar usuario</string>
+    <string name="delete_user">Eliminar usuario</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- User Roles -->
+    <string name="role_admin">Administrador</string>
+    <string name="role_user">Usuario</string>
+    <string name="role_guest">Invitado</string>
+
+    <!-- Status -->
+    <string name="status_active">Activo</string>
+    <string name="status_inactive">Inactivo</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_categories">Categorías</string>
+    <string name="nav_reports">Reportes</string>
+    <string name="nav_profile">Perfil</string>
+</resources>

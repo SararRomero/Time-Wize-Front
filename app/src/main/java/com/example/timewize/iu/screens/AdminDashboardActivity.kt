@@ -3,24 +3,29 @@ package com.example.timewize.iu.screens
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.example.timewize.R
+import com.example.timewize.iu.screens.categories.CategoriesActivity
 import kotlin.math.min
 import kotlin.math.cos
 import kotlin.math.sin
 
 class AdminDashboardActivity : AppCompatActivity() {
 
-    // Views que deben coincidir con los IDs en tu XML
+    // Views del dashboard
     private lateinit var txtActiveUsers: TextView
     private lateinit var txtUsedCategories: TextView
     private lateinit var txtTotalTimeSummary: TextView
@@ -30,6 +35,13 @@ class AdminDashboardActivity : AppCompatActivity() {
     private lateinit var cardHeader: CardView
     private lateinit var cardTimeDistribution: CardView
     private lateinit var cardProductivityTrend: CardView
+
+    // Views del navbar
+    private lateinit var navAdminHome: ImageView
+    private lateinit var navCategories: ImageView
+    private lateinit var navAddAdmin: ImageButton
+    private lateinit var navReports: ImageView
+    private lateinit var navAdminProfile: ImageView
 
     // Mock data
     private val timeDistributionData = listOf(
@@ -43,9 +55,10 @@ class AdminDashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_dashboard) // Asegúrate que este es tu layout correcto
+        setContentView(R.layout.activity_admin_dashboard)
 
         initViews()
+        setupBottomNavigation()
         setupMockData()
         setupCharts()
         animateViews()
@@ -53,8 +66,8 @@ class AdminDashboardActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        // Inicializar todas las views con findViewById
         try {
+            // Views del dashboard
             txtActiveUsers = findViewById(R.id.txtActiveUsers)
             txtUsedCategories = findViewById(R.id.txtUsedCategories)
             txtTotalTimeSummary = findViewById(R.id.txtTotalTimeSummary)
@@ -64,14 +77,115 @@ class AdminDashboardActivity : AppCompatActivity() {
             cardHeader = findViewById(R.id.cardHeader)
             cardTimeDistribution = findViewById(R.id.cardTimeDistribution)
             cardProductivityTrend = findViewById(R.id.cardProductivityTrend)
+
+            // Views del navbar
+            navAdminHome = findViewById(R.id.navAdminHome)
+            navCategories = findViewById(R.id.navCategories)
+            navAddAdmin = findViewById(R.id.navAddAdmin)
+            navReports = findViewById(R.id.navReports)
+            navAdminProfile = findViewById(R.id.navAdminProfile)
+
         } catch (e: Exception) {
-            // Si hay error, muestra qué ID está fallando
             Toast.makeText(this, "Error inicializando views: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
+    private fun setupBottomNavigation() {
+        // Inicio Admin (ya estamos aquí)
+        navAdminHome.setOnClickListener {
+            updateNavigationIcons(R.id.navAdminHome)
+            Toast.makeText(this, "Dashboard", Toast.LENGTH_SHORT).show()
+        }
+
+        // Categorías Globales
+        navCategories.setOnClickListener {
+            navigateToCategories()
+            updateNavigationIcons(R.id.navCategories)
+        }
+
+        // ✅ BOTÓN CENTRAL + - GESTIÓN DE USUARIOS
+        navAddAdmin.setOnClickListener {
+            navigateToUsersManagement()
+            updateNavigationIcons(R.id.navAddAdmin)
+        }
+
+        // Reportes Generales
+        navReports.setOnClickListener {
+            Toast.makeText(this, "Reportes Generales", Toast.LENGTH_SHORT).show()
+            updateNavigationIcons(R.id.navReports)
+        }
+
+        // Perfil Admin
+        navAdminProfile.setOnClickListener {
+            Toast.makeText(this, "Perfil Admin", Toast.LENGTH_SHORT).show()
+            updateNavigationIcons(R.id.navAdminProfile)
+        }
+
+        // Establecer el dashboard como seleccionado por defecto
+        updateNavigationIcons(R.id.navAdminHome)
+    }
+
+    // ✅ MÉTODO PARA NAVEGAR A GESTIÓN DE USUARIOS
+    private fun navigateToUsersManagement() {
+        try {
+            val intent = Intent(this, AdminUsersActivity::class.java)
+            startActivity(intent)
+            applySlideTransition()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error abriendo gestión de usuarios: ${e.message}", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+    }
+
+    private fun navigateToCategories() {
+        try {
+            val intent = Intent(this, CategoriesActivity::class.java)
+            startActivity(intent)
+            applySlideTransition()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error abriendo categorías: ${e.message}", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+    }
+
+    // ✅ MÉTODO CORREGIDO - SIN DEPRECATED WARNING
+    private fun applySlideTransition() {
+        try {
+            // Usar overrideActivityTransition en lugar de overridePendingTransition
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.slide_in_right, R.anim.slide_out_left)
+            } else {
+                // Fallback para versiones anteriores
+                @Suppress("DEPRECATION")
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+        } catch (e: Exception) {
+            // Si falla, continuar sin animación
+        }
+    }
+
+    private fun updateNavigationIcons(selectedItemId: Int) {
+        val unselectedColor = ContextCompat.getColor(this, R.color.text_secondary)
+        val selectedColor = ContextCompat.getColor(this, R.color.colorPrimary)
+
+        // Resetear todos los tintes
+        navAdminHome.setColorFilter(unselectedColor)
+        navCategories.setColorFilter(unselectedColor)
+        navAddAdmin.setColorFilter(unselectedColor)
+        navReports.setColorFilter(unselectedColor)
+        navAdminProfile.setColorFilter(unselectedColor)
+
+        // Aplicar color primario al ítem seleccionado
+        when (selectedItemId) {
+            R.id.navAdminHome -> navAdminHome.setColorFilter(selectedColor)
+            R.id.navCategories -> navCategories.setColorFilter(selectedColor)
+            R.id.navAddAdmin -> navAddAdmin.setColorFilter(selectedColor)
+            R.id.navReports -> navReports.setColorFilter(selectedColor)
+            R.id.navAdminProfile -> navAdminProfile.setColorFilter(selectedColor)
+        }
+    }
+
     private fun setupMockData() {
-        // Solo asignar si las views fueron inicializadas correctamente
         if (::txtActiveUsers.isInitialized) txtActiveUsers.text = "156"
         if (::txtUsedCategories.isInitialized) txtUsedCategories.text = "24"
         if (::txtTotalTimeSummary.isInitialized) txtTotalTimeSummary.text = "24 horas"
@@ -88,7 +202,6 @@ class AdminDashboardActivity : AppCompatActivity() {
     }
 
     private fun setupTimeDistributionChart() {
-        // Buscar el contenedor o placeholder para el gráfico circular
         val chartContainer = findViewById<ViewGroup?>(R.id.chartTimeByCategory)
         if (chartContainer != null) {
             val pieChart = PieChartView(this).apply {
@@ -100,7 +213,6 @@ class AdminDashboardActivity : AppCompatActivity() {
             }
             chartContainer.addView(pieChart)
 
-            // Animación
             pieChart.alpha = 0f
             pieChart.scaleX = 0.8f
             pieChart.scaleY = 0.8f
@@ -188,7 +300,7 @@ class AdminDashboardActivity : AppCompatActivity() {
         }
     }
 
-    // Data class y Custom Views (igual que antes)
+    // Data class y Custom Views
     data class PieChartData(
         val label: String,
         val value: Float,
